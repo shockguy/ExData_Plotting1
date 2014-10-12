@@ -1,3 +1,13 @@
+##Running the code
+
+The R code found here, plot1.R, plot2.R, plot3.R, plot4.R, creates respectively named plots.
+
+The working directory should contain the contents of the zip data file indicated in the assigment instructions.  Run the provide code files in the working directory and the plots will be created.
+
+Note that plot1.R also writes out a table containing only needed 2-day data.  This was created so the full data read in would not needed to be redone in the event of a session dying unexpectedly.  All the plot files read from the full data, an the instructions seem to request.
+
+The assigment instruction are below.
+
 ## Introduction
 
 This assignment uses data from
