@@ -13,7 +13,7 @@ classes<-c("myDate","character","numeric","numeric","numeric","numeric","numeric
 
 #Read in the entire data file
 alldata<-read.delim("./household_power_consumption.txt",header=TRUE,sep=";", nrows=rows,colClasses=classes,na.strings=c("?"),
-                     strip.white=TRUE)
+                    strip.white=TRUE)
 
 #Pull out the desired days for analysis
 data<-alldata[alldata$Date %in% as.Date(c("2007-02-01","2007-02-02")),]
@@ -21,24 +21,31 @@ data<-alldata[alldata$Date %in% as.Date(c("2007-02-01","2007-02-02")),]
 #Create the a POSIXct column.  This makes plotting easier.
 data[,2]<-as.POSIXct(strptime(c(paste(data[,1],data[,2],sep=" ")),format="%Y-%m-%d %T",tz="GMT"))
 
-#Write out the data of the desired days.  Not necessary, but aleviates the need
-#to read in and subset the compete original data set when starting
-#up new sessions of R.
-write.csv(data,"data.csv")
-
-#Plot 1
+#Plot 4
 #Set up the plot device.  Specified width=height to get square proportions.
-png("plot1.png", width=480, height=480)
+png("plot4.png", width=480, height=480)
 
-#Set text for plot. Usefull because function gets long otherwise
-#and there seemed to be a problem with continuing line routine 
-#sorting out the '()' in '(kilowatts)'.
+#Create the layout for the 4 plots; 2 rows, 2 columns.
+#Fill order is column 1 from top -> next column top to bottom ->...
+par(mfcol=c(2,2))
+
+#Upper left plot
 gapyaxis=c("Global Active Power (kilowatts)")
-gapmain=c("Global Active Power")
+plot(data$Time, data$Global_active_power, type="l",xlab="",ylab=gapyaxis)
 
-#Create the histogram.  Specified y limits at 1200, otherwise default is 1000
-hist(data$Global_active_power, col="red", ylim=c(0,1200),
-     main=gapmain, xlab=gapyaxis)
+#Lower left plot
+esmyaxis=c("Energy sub metering")
+plot(data$Time, data$Sub_metering_1, type="l",xlab="",ylab=esmyaxis, col="black")
+lines(data$Time, data$Sub_metering_2, type="l",xlab="",ylab="", col="red")
+lines(data$Time, data$Sub_metering_3, type="l",xlab="",ylab="", col="blue")
+leg.txt<-names(data)[7:9]
+legend(x="topright", legend=leg.txt, lwd=c(2.5,2.5,2.5), col=c("black","red","blue"))
 
-#dev off so that the file is complete and display returns to screen
+#Upper right plot
+plot(data$Time,data$Voltage,type="l",xlab="datetime",ylab="Voltage")
+
+#Lower right plot
+plot(data$Time,data$Global_reactive_power,type="l",xlab="datetime",ylab="Global_reactive_power")
+
+#dev off so that the file is complete and display returns to screen.
 dev.off()
