@@ -18,7 +18,7 @@ alldata<-read.delim("./household_power_consumption.txt",header=TRUE,sep=";", nro
 #Pull out the desired days for analysis
 data<-alldata[alldata$Date %in% as.Date(c("2007-02-01","2007-02-02")),]
 
-#Create the a POSIXct column.  This makes plotting easier.
+#Create a POSIXct column, replacing the contents of the time column.  This makes plotting easier.
 data[,2]<-as.POSIXct(strptime(c(paste(data[,1],data[,2],sep=" ")),format="%Y-%m-%d %T",tz="GMT"))
 
 #Plot 2
