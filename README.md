@@ -6,7 +6,7 @@ The working directory should contain the contents of the zip data file indicated
 
 All the plot files read from the full data.  It is of course possible to read in the data for the 2-days in question.  At the beginning I decided to read in everything just to see what what it was.  The read was fairly fast on my machine, and I saw no compelling reason to change it.  
 
-Note that plot1.R also writes out a table containing only needed 2-day data.  This was created so the full data read in would not needed to be redone in the event of a session dying unexpectedly.  
+Note that plot1.R also writes out a table containing only needed 2-day data.  This was created so the full data read in would not needed to be redone in the event of a session dying unexpectedly.  Again, this is something I did at the beginning just to be safe.  It made sense to leave it in order to share the idea.
 
 The assigment instruction are below.
 
